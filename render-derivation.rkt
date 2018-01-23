@@ -21,7 +21,8 @@
   (vc-append predeces-pict
              (hc-append (blank offset-r 0)
                         (hline
-                         (max (pict-width conclusion-pict)
+                         (max ;(pict-width conclusion-pict)
+                          0
                               (pict-width predeces-pict))
                          line-width)
                         name-pict)
@@ -46,7 +47,7 @@
 (define example1 (render-derivation nats
                                     (first
                                      (build-derivations
-                                      (sum (s (s (s z))) (s z) (s (s (s (s z))))))))
+                                      (sum (s (s (s z))) (s z) (s (s (s (s z)))))))))
 
 (define-judgment-form nats
   #:mode (even I)
