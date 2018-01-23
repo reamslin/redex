@@ -11,7 +11,7 @@
   (define subs (derivation-subs der))
   (define conclusion-pict (render-term/pretty-write lang term))
   (define predeces-pict (foldr (λ (v l)
-                                 (hc-append
+                                 (hb-append
                                   (render-derivation lang v)
                                   l))
                                (blank) subs))
