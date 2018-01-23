@@ -21,8 +21,7 @@
   (vc-append predeces-pict
              (hc-append (blank offset-r 0)
                         (hline
-                         (max ;(pict-width conclusion-pict)
-                          0
+                         (max (pict-width conclusion-pict)
                               (pict-width predeces-pict))
                          line-width)
                         name-pict)
