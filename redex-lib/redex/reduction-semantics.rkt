@@ -42,6 +42,7 @@
          IO-judgment-form?
          judgment-form?
          build-derivations
+         build-derivation
          (struct-out derivation)
          in-domain?
          caching-enabled?

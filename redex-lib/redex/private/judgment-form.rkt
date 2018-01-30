@@ -1214,6 +1214,10 @@
     [(_  jf-expr)
      #'(#%expression (judgment-holds/derivation build-derivations #t jf-expr any))]))
 
+(define-syntax-rule (build-derivation term)
+  (first (build-derivations term)))
+  
+
 (define-for-syntax (do-compile-judgment-form-proc name mode-stx clauses rule-names
                                                   orig-ctcs nts orig lang stx syn-error-name)
   (define is-relation? (jf-is-relation? name))
@@ -1971,6 +1975,7 @@
          define-extended-judgment-form
          judgment-holds
          build-derivations
+         build-derivation
          generate-lws
          IO-judgment-form?
          call-runtime-judgment-form

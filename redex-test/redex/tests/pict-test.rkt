@@ -9,6 +9,7 @@
          pict 
          racket/gui/base
          racket/class
+         racket/list
          rackunit)
 
 (define-language empty-language)
@@ -96,6 +97,60 @@
   (parameterize ([metafunction-cases '()])
     (render-judgment-form deep-empty)))
  0)
+
+(define-language nats
+  (n ::= z
+     (s n)))
+
+(define-judgment-form nats
+  #:mode (sum I I O)
+  #:contract (sum n n n)
+  [--------------  "zero"
+   (sum z n n)]
+
+  [(sum n_1 n_2 n_3)
+   ---------------------------- "add1"
+   (sum (s n_1) n_2 (s n_3))])
+
+(void (render-derivation nats
+                         (build-derivation
+                           (sum (s (s (s z))) (s z) (s (s (s (s z))))))))
+  
+(define-judgment-form nats
+  #:mode (even I)
+  #:contract (even n)
+
+  [------------- "evenz"
+   (even z)]
+
+  [(even n)
+   ------------- "even2"
+   (even (s (s n)))])
+
+(define-judgment-form nats
+  #:mode (all-even I)
+  #:contract (all-even (n ...))
+  [(even n) ...
+   ----------------- "all-even"
+   (all-even (n ...))])
+
+(define (make-example2)
+  (render-derivation nats
+                     (build-derivation
+                      (all-even ((s (s z)) z (s (s (s (s z)))))))))
+
+(void
+ (with-atomic-rewriter
+     'z
+   "zero"
+   (make-example2)))
+
+(void (make-example2))
+
+(require racket/pretty)
+
+(void (parameterize ([pretty-print-columns 10])
+        (make-example2)))  
 
 ;; check the contracts for the various rule-pict functions
 (void

@@ -50,6 +50,7 @@
          render-metafunction
          render-metafunctions
          render-judgment-form
+         render-derivation
          
          basic-text
          
@@ -939,6 +940,26 @@
   (syntax-case stx ()
     [(form rest ...)
      #'(render-judgment-form rest ...)]))
+
+;; render-derivation: language derivation -> pict
+;; return a pict of the tree of the derivation 
+(define (render-derivation lang der)
+    (match-define (derivation term name subs) der)
+    (define conclusion-pict (render-term/pretty-write lang term))
+    (define predeces-pict
+      (apply hb-append (map (λ (v) (render-derivation lang v)) subs)))
+    (define line-width 3)
+    (define space-before-name 10)
+    (define name-pict (hc-append (blank space-before-name 0) (text (string-append "[" name "]"))))
+    (define offset-r (pict-width name-pict))
+    (vc-append predeces-pict
+               (hc-append (blank offset-r 0)
+                          (filled-rectangle
+                           (max (pict-width conclusion-pict)
+                                (pict-width predeces-pict))
+                           line-width)
+                          name-pict)
+               conclusion-pict))
                
 (define linebreaks (make-parameter #f))
 (define sc-linebreaks (make-parameter #f))

@@ -67,7 +67,8 @@
          render-relation
          render-metafunction
          render-metafunctions
-         render-judgment-form)
+         render-judgment-form
+         render-derivation)
 
 (provide/contract
  [render-language-nts (parameter/c (or/c false/c (listof (or/c string? symbol?))))]
