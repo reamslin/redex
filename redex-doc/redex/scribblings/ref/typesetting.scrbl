@@ -391,6 +391,33 @@ This function sets @racket[dc-for-text-size]. See also
 @racket[judgment-form->pict].
 }
 
+@defform[(render-derivation language derivation)]{
+  This produces a pict of the tree of the @racket[derivation].
+
+@ex[(define-judgment-form nats
+      #:mode (even I)
+      #:contract (even n)
+
+      [------------- "evenz"
+       (even z)]
+
+      [(even n)
+       ------------- "even2"
+       (even (s (s n)))])
+
+    (define-judgment-form nats
+      #:mode (all-even I)
+      #:contract (all-even (n ...))
+      [(even n) ...
+       ----------------- "all-even"
+       (all-even (n ...))])
+
+    (render-derivation nats
+                       (build-derivation
+                        (all-even ((s (s z)) z (s (s (s (s z))))))))]
+}
+                                         
+
 @defform[(relation->pict relation-name)]{
   This produces a pict, but without setting @racket[dc-for-text-size].
   It is suitable for use in Slideshow or other libraries that combine

@@ -459,6 +459,15 @@ one element or the empty list.
        (build-derivations (even (s (s z))))]
 }
 
+@defform[(build-derivation judgment-or-relation)]{
+  Constructs a single @racket[derivation] tree
+  for @racket[judgment-or-relation].
+
+@examples[
+#:eval redex-eval
+       (build-derivation (even (s (s z))))]
+}
+
 @defstruct[derivation ([term any/c] [name (or/c string? #f)] [subs (listof derivation?)])]{
   Represents a derivation from a judgment form. 
 

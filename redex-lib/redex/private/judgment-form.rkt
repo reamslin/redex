@@ -1217,7 +1217,6 @@
 (define-syntax-rule (build-derivation term)
   (first (build-derivations term)))
   
-
 (define-for-syntax (do-compile-judgment-form-proc name mode-stx clauses rule-names
                                                   orig-ctcs nts orig lang stx syn-error-name)
   (define is-relation? (jf-is-relation? name))
